@@ -3,6 +3,7 @@
 import React, { useTransition, useState } from "react";
 import { authClient } from "@/src/configs/auth-client";
 import { Button } from "@/src/shared/components/ui/button";
+import { env } from "@/src/configs/config";
 
 const HomePage = () => {
   const [isPending, startTransition] = useTransition();
@@ -13,7 +14,7 @@ const HomePage = () => {
     startTransition(async () => {
       const res = await authClient.signIn.social({
         provider: "google",
-        callbackURL: `${process.env.NEXT_PUBLIC_BETTER_AUTH_URL}/username`,
+        callbackURL: `${env.frontendUrl}/username`,
       });
 
       if (res.error) {

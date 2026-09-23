@@ -3,6 +3,8 @@ import dotenv from "dotenv";
 import express from "express";
 import { toNodeHandler } from "better-auth/node";
 import { auth } from "./lib/auth";
+import youtubeRoutes from "./routes/youtube.routes";
+import { env } from "./lib/config";
 
 dotenv.config();
 
@@ -10,7 +12,7 @@ const app = express();
 
 app.use(
   cors({
-    origin: process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:3000",
+    origin: env.NEXT_PUBLIC_API_URL ?? "http://localhost:3000",
     credentials: true,
   }),
 );
@@ -25,8 +27,8 @@ app.get("/api/health", (_req, res) => {
   });
 });
 
-const PORT = process.env.PORT || 5000;
+app.use("/api/youtube", youtubeRoutes);
 
-app.listen(PORT, () => {
-  console.log(`Varyo API running on http://localhost:${PORT}`);
+app.listen(env.PORT, () => {
+  console.log(`Varyo API running on http://localhost:${env.PORT}`);
 });

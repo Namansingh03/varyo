@@ -35,7 +35,7 @@ __turbopack_context__.s([
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$bun$2f$better$2d$auth$40$1$2e$7$2e$5$2b$0db6e1c2df6095ae$2f$node_modules$2f$better$2d$auth$2f$dist$2f$client$2f$react$2f$index$2e$mjs__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$locals$3e$__ = __turbopack_context__.i("[project]/node_modules/.bun/better-auth@1.7.5+0db6e1c2df6095ae/node_modules/better-auth/dist/client/react/index.mjs [app-ssr] (ecmascript) <locals>");
 ;
 const authClient = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$bun$2f$better$2d$auth$40$1$2e$7$2e$5$2b$0db6e1c2df6095ae$2f$node_modules$2f$better$2d$auth$2f$dist$2f$client$2f$react$2f$index$2e$mjs__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$locals$3e$__["createAuthClient"])({
-    /** The base URL of the server (optional if you're using the same domain) */ baseURL: ("TURBOPACK compile-time value", "http://localhost:3000")
+    /** The base URL of the server (optional if you're using the same domain) */ baseURL: ("TURBOPACK compile-time value", "http://localhost:5000")
 });
 }),
 "[project]/apps/web/src/features/home/HomePage.tsx [app-ssr] (ecmascript)", ((__turbopack_context__) => {
