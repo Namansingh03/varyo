@@ -1,0 +1,25 @@
+{
+  "name": "varyo",
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
+  "scripts": {
+    "dev": "bun run --parallel dev:web dev:api",
+    "dev:web": "bun --cwd apps/web dev",
+    "dev:api": "bun --cwd apps/api dev",
+    "build": "bun run build:web && bun run build:api",
+    "build:web": "bun --cwd apps/web build",
+    "build:api": "bun --cwd apps/api build",
+    "typecheck": "bun run typecheck:web && bun run typecheck:api && bun run typecheck:shared",
+    "typecheck:web": "bun --cwd apps/web tsc --noEmit",
+    "typecheck:api": "bun --cwd apps/api tsc --noEmit",
+    "typecheck:shared": "bun --cwd packages/shared tsc --noEmit"
+  },
+  "devDependencies": {
+    "@types/bun": "latest"
+  },
+  "peerDependencies": {
+    "typescript": "^5"
+  }
+}

@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": [],
+  "sections": [
+    {"offset": {"line": 4, "column": 0}, "map": {"version":3,"sources":["file:///home/naman/varyo/apps/web/app/lib/auth-client.ts"],"sourcesContent":["import { createAuthClient } from \"better-auth/react\";\n\nexport const authClient = createAuthClient({\n  /** The base URL of the server (optional if you're using the same domain) */\n  baseURL: process.env.NEXT_PUBLIC_BETTER_AUTH_URL,\n});"],"names":["authClient","baseURL"],"mappings":";;;;AAAA;;AAEO,MAAMA,aAAa,IAAA,qRAAgB,EAAC;IACzC,0EAA0E,GAC1EC,OAAO;AACT"}},
+    {"offset": {"line": 17, "column": 0}, "map": {"version":3,"sources":["file:///home/naman/varyo/apps/web/app/page.tsx"],"sourcesContent":["\"use client\";\n\nimport { authClient } from \"@/app/lib/auth-client\";\nimport { Button } from \"./features/shared/components/ui\";\n\nexport default function Home() {\n  return (\n    <div className=\"min-w-full min-h-screen flex items-centre justify-center\">\n      <Button\n        onClick={() => {\n          authClient.linkSocial({\n            provider: \"google\",\n          });\n        }}\n      >\n        google\n      </Button>\n    </div>\n  );\n}\n"],"names":["Home","className","Button","onClick","linkSocial","provider"],"mappings":";;;;;AAEA;;;;;;AAFA;;;;AAKe,SAASA;IACtB,qBACE,mTAAC;QAAIC,WAAU;kBACb,cAAA,mTAACC;YACCC,SAAS;gBACP,yJAAU,CAACC,UAAU,CAAC;oBACpBC,UAAU;gBACZ;YACF;sBACD;;;;;;;;;;;AAKP"}}]
+}

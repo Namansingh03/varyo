@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": [],
+  "sections": [
+    {"offset": {"line": 4, "column": 0}, "map": {"version":3,"sources":["file:///home/naman/varyo/apps/web/app/page.tsx"],"sourcesContent":["\"use client\";\n\nimport { authClient } from \"../lib/auth-client\";\n\nexport default function Home() {\n  return (\n    <div className=\"w-full h-screen flex items-centre justify-center\">\n      <button\n        onClick={() =>\n          authClient.linkSocial({\n            provider: \"google\",\n            callbackURL: \"\",\n          })\n        }\n      >\n        google\n      </button>\n    </div>\n  );\n}\n"],"names":["Home","className","onClick","linkSocial","provider","callbackURL"],"mappings":";;;;;AAEA;AAFA;;;AAIe,SAASA;IACtB,qBACE,kQAAC;QAAIC,WAAU;kBACb,cAAA,kQAAC;YACCC,SAAS,IACP,qJAAU,CAACC,UAAU,CAAC;oBACpBC,UAAU;oBACVC,aAAa;gBACf;sBAEH;;;;;;;;;;;AAKP;KAfwBL"}},
+    {"offset": {"line": 43, "column": 0}, "map": {"version":3,"sources":["file:///home/naman/varyo/apps/web/lib/auth-client.ts"],"sourcesContent":["import { createAuthClient } from \"better-auth/react\";\n\nexport const authClient = createAuthClient({\n  /** The base URL of the server (optional if you're using the same domain) */\n  baseURL: process.env.NEXT_PUBLIC_BETTER_AUTH_URL,\n});"],"names":["authClient","baseURL"],"mappings":";;;;AAIW;AAJX;;AAEO,MAAMA,aAAa,IAAA,wRAAgB,EAAC;IACzC,0EAA0E,GAC1EC,OAAO;AACT"}}]
+}
