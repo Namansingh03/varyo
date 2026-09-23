@@ -1,53 +1,51 @@
-"use server";
-
-import { type Request, type Response } from "express";
+import { type Request } from "express";
 import { auth } from "../lib/auth";
 import { fromNodeHeaders } from "better-auth/node";
 
-export async function getUserAccessTokens(
-  provider: "google",
-  req: Request,
-  res: Response,
-) {
+interface getUserAccessTokenProps {
+  provider: "google";
+  req: Request;
+}
+
+export async function getUserAccessTokens({
+  provider,
+  req,
+}: getUserAccessTokenProps) {
   try {
     const session = await auth.api.getSession({
       headers: fromNodeHeaders(req.headers),
     });
 
-    if (!session) {
-      res.status(401).json({
-        success: false,
-        message: "session not found",
-        data: null,
+    if (!session?.user) {
+      throw Object.assign(new Error("session not found"), { status: 401 });
+    }
+
+    const accounts = await auth.api.listUserAccounts({
+      headers: fromNodeHeaders(req.headers),
+    });
+
+    const account = accounts.find((account) => account.providerId === provider);
+
+    if (!account) {
+      throw Object.assign(new Error("no linked account found"), {
+        status: 403,
       });
     }
 
-    const { accessToken } = await auth.api.getAccessToken({
+    const result = await auth.api.getAccessToken({
       body: {
-        accountId: "google",
+        accountId: account.id,
       },
       headers: fromNodeHeaders(req.headers),
     });
 
-    if (!accessToken) {
-      return res.status(403).json({
-        success: false,
-        message: "access token not found",
-        data: null,
-      });
+    if (!result.accessToken) {
+      throw Object.assign(new Error("access token not found"), { status: 400 });
     }
 
-    return res.status(200).json({
-      success: true,
-      message: "access token found successfully",
-      data: accessToken,
-    });
+    return result.accessToken;
   } catch (error) {
     console.log("something went wrong while getting access tokens", error);
-    return res.status(404).json({
-      success: false,
-      message: "something went wrong",
-      data: null,
-    });
+    throw error;
   }
 }

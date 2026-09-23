@@ -5,38 +5,9 @@ import {
   type Response,
 } from "express";
 import { google } from "googleapis";
-import { auth } from "../lib/auth";
-import { fromNodeHeaders } from "better-auth/node";
+import { getUserAccessTokens } from "../utils/getUserAccessToken";
 
 const youtubeRoutes: RouterType = Router();
-
-export async function getUserAccessTokens(req: Request) {
-  try {
-    const session = await auth.api.getSession({
-      headers: fromNodeHeaders(req.headers),
-    });
-
-    if (!session) {
-      throw Object.assign(new Error("Not authenticated"), { status: 401 });
-    }
-
-    const { accessToken } = await auth.api.getAccessToken({
-      body: {
-        accountId: "google",
-      },
-      headers: fromNodeHeaders(req.headers),
-    });
-
-    if (!accessToken) {
-      throw Object.assign(new Error("YouTube not connected"), { status: 403 });
-    }
-
-    return accessToken;
-  } catch (error) {
-    console.log("something went wrong while getting access tokens", error);
-    throw Object.assign(new Error("something went wrong"), { status: 404 });
-  }
-}
 
 function youtubeClient(accessToken: string) {
   const oauth2Client = new google.auth.OAuth2();
@@ -46,9 +17,12 @@ function youtubeClient(accessToken: string) {
 
 youtubeRoutes.get("/channel", async (req: Request, res: Response) => {
   try {
-    const access_token = await getUserAccessTokens(req);
+    const access_token_result = await getUserAccessTokens({
+      provider: "google",
+      req,
+    });
 
-    const youtube = youtubeClient(access_token);
+    const youtube = youtubeClient(access_token_result);
 
     const result = await youtube.channels.list({
       part: ["snippet", "statistics", "contentDetails"],

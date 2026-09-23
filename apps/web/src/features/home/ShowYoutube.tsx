@@ -40,7 +40,10 @@ export function YouTubeChannelCard() {
       }
 
       if (!res.ok) {
-        throw new Error(`Request failed: ${res.status}`);
+        const body = await res.json().catch(() => null);
+        throw new Error(
+          body?.message || body?.error || `Request failed: ${res.status}`,
+        );
       }
 
       const data: YouTubeChannel = await res.json();
