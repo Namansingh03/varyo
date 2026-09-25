@@ -11,18 +11,43 @@ datasource db {
 }
 
 model User {
-  id            String    @id @default(cuid())
-  email         String    @unique
-  username      String?
-  name          String?
-  createdAt     DateTime  @default(now())
-  updatedAt     DateTime  @updatedAt
-  emailVerified Boolean   @default(false)
-  image         String?
-  sessions      Session[]
-  accounts      Account[]
+  id             String          @id @default(cuid())
+  email          String          @unique
+  username       String?
+  name           String?
+  createdAt      DateTime        @default(now())
+  updatedAt      DateTime        @updatedAt
+  emailVerified  Boolean         @default(false)
+  image          String?
+  sessions       Session[]
+  accounts       Account[]
+  socialAccounts SocialAccount[]
 
   @@map("user")
+}
+
+model SocialAccount {
+  id     String @id @default(uuid())
+  userId String
+
+  platform          Platform
+  platformAccountId String
+  providerAccountId String
+
+  social_username  String?
+  social_avatarUrl String?
+
+  accessToken  String
+  refreshToken String?
+
+  expiresAt DateTime?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, platform, platformAccountId])
 }
 
 model Session {
@@ -71,4 +96,8 @@ model Verification {
 
   @@index([identifier])
   @@map("verification")
+}
+
+enum Platform {
+  YOUTUBE
 }

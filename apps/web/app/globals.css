@@ -46,6 +46,66 @@
   --radius-2xl: calc(var(--radius) * 1.8);
   --radius-3xl: calc(var(--radius) * 2.2);
   --radius-4xl: calc(var(--radius) * 2.6);
+
+  --color-spicy-paprika-50: #fcede8;
+  --color-spicy-paprika-100: #f9dbd2;
+  --color-spicy-paprika-200: #f3b7a5;
+  --color-spicy-paprika-300: #ed9378;
+  --color-spicy-paprika-400: #e86f4a;
+  --color-spicy-paprika-500: #e24b1d;
+  --color-spicy-paprika-600: #b53c17;
+  --color-spicy-paprika-700: #872d12;
+  --color-spicy-paprika-800: #5a1e0c;
+  --color-spicy-paprika-900: #2d0f06;
+  --color-spicy-paprika-950: #200b04;
+
+  --color-canary-yellow-50: #fcfde7;
+  --color-canary-yellow-100: #fafccf;
+  --color-canary-yellow-200: #f4f99f;
+  --color-canary-yellow-300: #eff66f;
+  --color-canary-yellow-400: #eaf33f;
+  --color-canary-yellow-500: #e4f00f;
+  --color-canary-yellow-600: #b7c00c;
+  --color-canary-yellow-700: #899009;
+  --color-canary-yellow-800: #5b6006;
+  --color-canary-yellow-900: #2e3003;
+  --color-canary-yellow-950: #202202;
+
+  --color-honeydew-50: #f1f9ec;
+  --color-honeydew-100: #e4f2d9;
+  --color-honeydew-200: #c9e6b3;
+  --color-honeydew-300: #add98c;
+  --color-honeydew-400: #92cc66;
+  --color-honeydew-500: #77bf40;
+  --color-honeydew-600: #5f9933;
+  --color-honeydew-700: #477326;
+  --color-honeydew-800: #304d19;
+  --color-honeydew-900: #18260d;
+  --color-honeydew-950: #111b09;
+
+  --color-muted-olive-50: #f3f7ee;
+  --color-muted-olive-100: #e6efdc;
+  --color-muted-olive-200: #cddeba;
+  --color-muted-olive-300: #b4ce97;
+  --color-muted-olive-400: #9bbe74;
+  --color-muted-olive-500: #83ad52;
+  --color-muted-olive-600: #688b41;
+  --color-muted-olive-700: #4e6831;
+  --color-muted-olive-800: #344521;
+  --color-muted-olive-900: #1a2310;
+  --color-muted-olive-950: #12180b;
+
+  --color-palm-leaf-50: #f5f5ef;
+  --color-palm-leaf-100: #ebebe0;
+  --color-palm-leaf-200: #d8d7c0;
+  --color-palm-leaf-300: #c4c4a1;
+  --color-palm-leaf-400: #b0b082;
+  --color-palm-leaf-500: #9d9c62;
+  --color-palm-leaf-600: #7d7d4f;
+  --color-palm-leaf-700: #5e5e3b;
+  --color-palm-leaf-800: #3f3e27;
+  --color-palm-leaf-900: #1f1f14;
+  --color-palm-leaf-950: #16160e;
 }
 
 :root {

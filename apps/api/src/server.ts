@@ -1,10 +1,11 @@
 import cors from "cors";
 import dotenv from "dotenv";
 import express from "express";
-import { toNodeHandler } from "better-auth/node";
 import { auth } from "./lib/auth";
-import youtubeRoutes from "./routes/youtube.routes";
 import { env } from "./lib/config";
+import { toNodeHandler } from "better-auth/node";
+import socialRoutes from "./routes/social.routes";
+import youtubeRoutes from "./routes/youtube.routes";
 
 dotenv.config();
 
@@ -27,6 +28,7 @@ app.get("/api/health", (_req, res) => {
   });
 });
 
+app.use("/api/social", socialRoutes);
 app.use("/api/youtube", youtubeRoutes);
 
 app.listen(env.PORT, () => {
