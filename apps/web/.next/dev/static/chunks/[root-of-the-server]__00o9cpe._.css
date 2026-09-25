@@ -196,7 +196,11 @@
   :root, :host {
     --font-sans: var(--font-sans);
     --color-red-500: #fb2c36;
+    --color-indigo-800: #372aac;
+    --color-indigo-950: #1e1a4d;
     --color-gray-500: #6a7282;
+    --color-neutral-50: #fafafa;
+    --color-neutral-100: #f5f5f5;
     --color-black: #000;
     --color-white: #fff;
     --spacing: .25rem;
@@ -216,7 +220,11 @@
   @supports (color: lab(0% 0 0)) {
     :root, :host {
       --color-red-500: lab(55.4814% 75.0732 48.8528);
+      --color-indigo-800: lab(26.6645% 37.9804 -68.6402);
+      --color-indigo-950: lab(12.4853% 14.9672 -31.3418);
       --color-gray-500: lab(47.7841% -.393182 -10.0268);
+      --color-neutral-50: lab(98.26% 0 0);
+      --color-neutral-100: lab(96.52% -.0000298023 .0000119209);
     }
   }
 }
@@ -649,6 +657,22 @@
     .bg-destructive\/10 {
       background-color: color-mix(in oklab, var(--destructive) 10%, transparent);
     }
+  }
+
+  .bg-indigo-800 {
+    background-color: var(--color-indigo-800);
+  }
+
+  .bg-indigo-950 {
+    background-color: var(--color-indigo-950);
+  }
+
+  .bg-neutral-50 {
+    background-color: var(--color-neutral-50);
+  }
+
+  .bg-neutral-100 {
+    background-color: var(--color-neutral-100);
   }
 
   .bg-primary {

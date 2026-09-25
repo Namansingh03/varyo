@@ -57,7 +57,7 @@ export function YouTubeChannelCard() {
   }
 
   return (
-    <div className="space-y-4">
+    <div className="space-y-4 ">
       {/* Fetch button */}
       <button
         type="button"
@@ -73,7 +73,7 @@ export function YouTubeChannelCard() {
 
       {/* Channel */}
       {channel && (
-        <div className="flex items-center gap-4 rounded-lg border p-4">
+        <div className="flex bg-neutral-100 items-center gap-4 rounded-lg border p-4">
           <img
             src={channel.thumbnail}
             alt={channel.title}
