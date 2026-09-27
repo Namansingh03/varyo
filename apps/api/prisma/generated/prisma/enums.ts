@@ -10,7 +10,20 @@
 */
 
 export const Platform = {
-  YOUTUBE: 'YOUTUBE'
+  YOUTUBE: 'YOUTUBE',
+  TIKTOK: 'TIKTOK',
+  INSTAGRAM: 'INSTAGRAM',
+  FACEBOOK: 'FACEBOOK'
 } as const
 
 export type Platform = (typeof Platform)[keyof typeof Platform]
+
+
+export const UploadStatus = {
+  PENDING: 'PENDING',
+  PROCESSING: 'PROCESSING',
+  COMPLETED: 'COMPLETED',
+  FAILED: 'FAILED'
+} as const
+
+export type UploadStatus = (typeof UploadStatus)[keyof typeof UploadStatus]

@@ -1,1 +1,4 @@
-- upload yt features 
+better-auth :
+   1. add email and password link
+   2. forgot password
+   3. reset password

@@ -208,7 +208,7 @@ export type UserWhereInput = {
   image?: Prisma.StringNullableFilter<"User"> | string | null
   sessions?: Prisma.SessionListRelationFilter
   accounts?: Prisma.AccountListRelationFilter
-  socialAccounts?: Prisma.SocialAccountListRelationFilter
+  contentUploads?: Prisma.ContentUploadListRelationFilter
 }
 
 export type UserOrderByWithRelationInput = {
@@ -222,7 +222,7 @@ export type UserOrderByWithRelationInput = {
   image?: Prisma.SortOrderInput | Prisma.SortOrder
   sessions?: Prisma.SessionOrderByRelationAggregateInput
   accounts?: Prisma.AccountOrderByRelationAggregateInput
-  socialAccounts?: Prisma.SocialAccountOrderByRelationAggregateInput
+  contentUploads?: Prisma.ContentUploadOrderByRelationAggregateInput
 }
 
 export type UserWhereUniqueInput = Prisma.AtLeast<{
@@ -239,7 +239,7 @@ export type UserWhereUniqueInput = Prisma.AtLeast<{
   image?: Prisma.StringNullableFilter<"User"> | string | null
   sessions?: Prisma.SessionListRelationFilter
   accounts?: Prisma.AccountListRelationFilter
-  socialAccounts?: Prisma.SocialAccountListRelationFilter
+  contentUploads?: Prisma.ContentUploadListRelationFilter
 }, "id" | "email">
 
 export type UserOrderByWithAggregationInput = {
@@ -281,7 +281,7 @@ export type UserCreateInput = {
   image?: string | null
   sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
   accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
-  socialAccounts?: Prisma.SocialAccountCreateNestedManyWithoutUserInput
+  contentUploads?: Prisma.ContentUploadCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateInput = {
@@ -295,7 +295,7 @@ export type UserUncheckedCreateInput = {
   image?: string | null
   sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
   accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
-  socialAccounts?: Prisma.SocialAccountUncheckedCreateNestedManyWithoutUserInput
+  contentUploads?: Prisma.ContentUploadUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserUpdateInput = {
@@ -309,7 +309,7 @@ export type UserUpdateInput = {
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
   accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
-  socialAccounts?: Prisma.SocialAccountUpdateManyWithoutUserNestedInput
+  contentUploads?: Prisma.ContentUploadUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateInput = {
@@ -323,7 +323,7 @@ export type UserUncheckedUpdateInput = {
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
   accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
-  socialAccounts?: Prisma.SocialAccountUncheckedUpdateManyWithoutUserNestedInput
+  contentUploads?: Prisma.ContentUploadUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateManyInput = {
@@ -413,18 +413,18 @@ export type BoolFieldUpdateOperationsInput = {
   set?: boolean
 }
 
-export type UserCreateNestedOneWithoutSocialAccountsInput = {
-  create?: Prisma.XOR<Prisma.UserCreateWithoutSocialAccountsInput, Prisma.UserUncheckedCreateWithoutSocialAccountsInput>
-  connectOrCreate?: Prisma.UserCreateOrConnectWithoutSocialAccountsInput
+export type UserCreateNestedOneWithoutContentUploadsInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutContentUploadsInput, Prisma.UserUncheckedCreateWithoutContentUploadsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutContentUploadsInput
   connect?: Prisma.UserWhereUniqueInput
 }
 
-export type UserUpdateOneRequiredWithoutSocialAccountsNestedInput = {
-  create?: Prisma.XOR<Prisma.UserCreateWithoutSocialAccountsInput, Prisma.UserUncheckedCreateWithoutSocialAccountsInput>
-  connectOrCreate?: Prisma.UserCreateOrConnectWithoutSocialAccountsInput
-  upsert?: Prisma.UserUpsertWithoutSocialAccountsInput
+export type UserUpdateOneRequiredWithoutContentUploadsNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutContentUploadsInput, Prisma.UserUncheckedCreateWithoutContentUploadsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutContentUploadsInput
+  upsert?: Prisma.UserUpsertWithoutContentUploadsInput
   connect?: Prisma.UserWhereUniqueInput
-  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutSocialAccountsInput, Prisma.UserUpdateWithoutSocialAccountsInput>, Prisma.UserUncheckedUpdateWithoutSocialAccountsInput>
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutContentUploadsInput, Prisma.UserUpdateWithoutContentUploadsInput>, Prisma.UserUncheckedUpdateWithoutContentUploadsInput>
 }
 
 export type UserCreateNestedOneWithoutSessionsInput = {
@@ -455,7 +455,7 @@ export type UserUpdateOneRequiredWithoutAccountsNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutAccountsInput, Prisma.UserUpdateWithoutAccountsInput>, Prisma.UserUncheckedUpdateWithoutAccountsInput>
 }
 
-export type UserCreateWithoutSocialAccountsInput = {
+export type UserCreateWithoutContentUploadsInput = {
   id?: string
   email: string
   username?: string | null
@@ -468,7 +468,7 @@ export type UserCreateWithoutSocialAccountsInput = {
   accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
 }
 
-export type UserUncheckedCreateWithoutSocialAccountsInput = {
+export type UserUncheckedCreateWithoutContentUploadsInput = {
   id?: string
   email: string
   username?: string | null
@@ -481,23 +481,23 @@ export type UserUncheckedCreateWithoutSocialAccountsInput = {
   accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
 }
 
-export type UserCreateOrConnectWithoutSocialAccountsInput = {
+export type UserCreateOrConnectWithoutContentUploadsInput = {
   where: Prisma.UserWhereUniqueInput
-  create: Prisma.XOR<Prisma.UserCreateWithoutSocialAccountsInput, Prisma.UserUncheckedCreateWithoutSocialAccountsInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutContentUploadsInput, Prisma.UserUncheckedCreateWithoutContentUploadsInput>
 }
 
-export type UserUpsertWithoutSocialAccountsInput = {
-  update: Prisma.XOR<Prisma.UserUpdateWithoutSocialAccountsInput, Prisma.UserUncheckedUpdateWithoutSocialAccountsInput>
-  create: Prisma.XOR<Prisma.UserCreateWithoutSocialAccountsInput, Prisma.UserUncheckedCreateWithoutSocialAccountsInput>
+export type UserUpsertWithoutContentUploadsInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutContentUploadsInput, Prisma.UserUncheckedUpdateWithoutContentUploadsInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutContentUploadsInput, Prisma.UserUncheckedCreateWithoutContentUploadsInput>
   where?: Prisma.UserWhereInput
 }
 
-export type UserUpdateToOneWithWhereWithoutSocialAccountsInput = {
+export type UserUpdateToOneWithWhereWithoutContentUploadsInput = {
   where?: Prisma.UserWhereInput
-  data: Prisma.XOR<Prisma.UserUpdateWithoutSocialAccountsInput, Prisma.UserUncheckedUpdateWithoutSocialAccountsInput>
+  data: Prisma.XOR<Prisma.UserUpdateWithoutContentUploadsInput, Prisma.UserUncheckedUpdateWithoutContentUploadsInput>
 }
 
-export type UserUpdateWithoutSocialAccountsInput = {
+export type UserUpdateWithoutContentUploadsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
   username?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -510,7 +510,7 @@ export type UserUpdateWithoutSocialAccountsInput = {
   accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
 }
 
-export type UserUncheckedUpdateWithoutSocialAccountsInput = {
+export type UserUncheckedUpdateWithoutContentUploadsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
   username?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -533,7 +533,7 @@ export type UserCreateWithoutSessionsInput = {
   emailVerified?: boolean
   image?: string | null
   accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
-  socialAccounts?: Prisma.SocialAccountCreateNestedManyWithoutUserInput
+  contentUploads?: Prisma.ContentUploadCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutSessionsInput = {
@@ -546,7 +546,7 @@ export type UserUncheckedCreateWithoutSessionsInput = {
   emailVerified?: boolean
   image?: string | null
   accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
-  socialAccounts?: Prisma.SocialAccountUncheckedCreateNestedManyWithoutUserInput
+  contentUploads?: Prisma.ContentUploadUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutSessionsInput = {
@@ -575,7 +575,7 @@ export type UserUpdateWithoutSessionsInput = {
   emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
-  socialAccounts?: Prisma.SocialAccountUpdateManyWithoutUserNestedInput
+  contentUploads?: Prisma.ContentUploadUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutSessionsInput = {
@@ -588,7 +588,7 @@ export type UserUncheckedUpdateWithoutSessionsInput = {
   emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
-  socialAccounts?: Prisma.SocialAccountUncheckedUpdateManyWithoutUserNestedInput
+  contentUploads?: Prisma.ContentUploadUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutAccountsInput = {
@@ -601,7 +601,7 @@ export type UserCreateWithoutAccountsInput = {
   emailVerified?: boolean
   image?: string | null
   sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
-  socialAccounts?: Prisma.SocialAccountCreateNestedManyWithoutUserInput
+  contentUploads?: Prisma.ContentUploadCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutAccountsInput = {
@@ -614,7 +614,7 @@ export type UserUncheckedCreateWithoutAccountsInput = {
   emailVerified?: boolean
   image?: string | null
   sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
-  socialAccounts?: Prisma.SocialAccountUncheckedCreateNestedManyWithoutUserInput
+  contentUploads?: Prisma.ContentUploadUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutAccountsInput = {
@@ -643,7 +643,7 @@ export type UserUpdateWithoutAccountsInput = {
   emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
-  socialAccounts?: Prisma.SocialAccountUpdateManyWithoutUserNestedInput
+  contentUploads?: Prisma.ContentUploadUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutAccountsInput = {
@@ -656,7 +656,7 @@ export type UserUncheckedUpdateWithoutAccountsInput = {
   emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
-  socialAccounts?: Prisma.SocialAccountUncheckedUpdateManyWithoutUserNestedInput
+  contentUploads?: Prisma.ContentUploadUncheckedUpdateManyWithoutUserNestedInput
 }
 
 
@@ -667,13 +667,13 @@ export type UserUncheckedUpdateWithoutAccountsInput = {
 export type UserCountOutputType = {
   sessions: number
   accounts: number
-  socialAccounts: number
+  contentUploads: number
 }
 
 export type UserCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   sessions?: boolean | UserCountOutputTypeCountSessionsArgs
   accounts?: boolean | UserCountOutputTypeCountAccountsArgs
-  socialAccounts?: boolean | UserCountOutputTypeCountSocialAccountsArgs
+  contentUploads?: boolean | UserCountOutputTypeCountContentUploadsArgs
 }
 
 /**
@@ -703,8 +703,8 @@ export type UserCountOutputTypeCountAccountsArgs<ExtArgs extends runtime.Types.E
 /**
  * UserCountOutputType without action
  */
-export type UserCountOutputTypeCountSocialAccountsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  where?: Prisma.SocialAccountWhereInput
+export type UserCountOutputTypeCountContentUploadsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.ContentUploadWhereInput
 }
 
 
@@ -719,7 +719,7 @@ export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   image?: boolean
   sessions?: boolean | Prisma.User$sessionsArgs<ExtArgs>
   accounts?: boolean | Prisma.User$accountsArgs<ExtArgs>
-  socialAccounts?: boolean | Prisma.User$socialAccountsArgs<ExtArgs>
+  contentUploads?: boolean | Prisma.User$contentUploadsArgs<ExtArgs>
   _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["user"]>
 
@@ -760,7 +760,7 @@ export type UserOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = run
 export type UserInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   sessions?: boolean | Prisma.User$sessionsArgs<ExtArgs>
   accounts?: boolean | Prisma.User$accountsArgs<ExtArgs>
-  socialAccounts?: boolean | Prisma.User$socialAccountsArgs<ExtArgs>
+  contentUploads?: boolean | Prisma.User$contentUploadsArgs<ExtArgs>
   _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type UserIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {}
@@ -771,7 +771,7 @@ export type $UserPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
   objects: {
     sessions: Prisma.$SessionPayload<ExtArgs>[]
     accounts: Prisma.$AccountPayload<ExtArgs>[]
-    socialAccounts: Prisma.$SocialAccountPayload<ExtArgs>[]
+    contentUploads: Prisma.$ContentUploadPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -1178,7 +1178,7 @@ export interface Prisma__UserClient<T, Null = never, ExtArgs extends runtime.Typ
   readonly [Symbol.toStringTag]: "PrismaPromise"
   sessions<T extends Prisma.User$sessionsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$sessionsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$SessionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   accounts<T extends Prisma.User$accountsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$accountsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$AccountPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-  socialAccounts<T extends Prisma.User$socialAccountsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$socialAccountsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$SocialAccountPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  contentUploads<T extends Prisma.User$contentUploadsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$contentUploadsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ContentUploadPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1657,27 +1657,27 @@ export type User$accountsArgs<ExtArgs extends runtime.Types.Extensions.InternalA
 }
 
 /**
- * User.socialAccounts
+ * User.contentUploads
  */
-export type User$socialAccountsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+export type User$contentUploadsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   /**
-   * Select specific fields to fetch from the SocialAccount
+   * Select specific fields to fetch from the ContentUpload
    */
-  select?: Prisma.SocialAccountSelect<ExtArgs> | null
+  select?: Prisma.ContentUploadSelect<ExtArgs> | null
   /**
-   * Omit specific fields from the SocialAccount
+   * Omit specific fields from the ContentUpload
    */
-  omit?: Prisma.SocialAccountOmit<ExtArgs> | null
+  omit?: Prisma.ContentUploadOmit<ExtArgs> | null
   /**
    * Choose, which related nodes to fetch as well
    */
-  include?: Prisma.SocialAccountInclude<ExtArgs> | null
-  where?: Prisma.SocialAccountWhereInput
-  orderBy?: Prisma.SocialAccountOrderByWithRelationInput | Prisma.SocialAccountOrderByWithRelationInput[]
-  cursor?: Prisma.SocialAccountWhereUniqueInput
+  include?: Prisma.ContentUploadInclude<ExtArgs> | null
+  where?: Prisma.ContentUploadWhereInput
+  orderBy?: Prisma.ContentUploadOrderByWithRelationInput | Prisma.ContentUploadOrderByWithRelationInput[]
+  cursor?: Prisma.ContentUploadWhereUniqueInput
   take?: number
   skip?: number
-  distinct?: Prisma.SocialAccountScalarFieldEnum | Prisma.SocialAccountScalarFieldEnum[]
+  distinct?: Prisma.ContentUploadScalarFieldEnum | Prisma.ContentUploadScalarFieldEnum[]
 }
 
 /**

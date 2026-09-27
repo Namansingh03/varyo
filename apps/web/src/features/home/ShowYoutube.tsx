@@ -22,7 +22,7 @@ export function YouTubeChannelCard() {
       setError(null);
 
       const res = await fetch(
-        `${process.env.NEXT_PUBLIC_BETTER_AUTH_URL}/api/youtube/channel`,
+        `${process.env.NEXT_PUBLIC_BETTER_AUTH_URL}/api/youtube/channel-details`,
         {
           method: "GET",
           credentials: "include",

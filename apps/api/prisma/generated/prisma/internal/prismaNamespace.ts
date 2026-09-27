@@ -398,7 +398,7 @@ type FieldRefInputType<Model, FieldType> = Model extends never ? never : FieldRe
 
 export const ModelName = {
   User: 'User',
-  SocialAccount: 'SocialAccount',
+  ContentUpload: 'ContentUpload',
   Session: 'Session',
   Account: 'Account',
   Verification: 'Verification'
@@ -417,7 +417,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "user" | "socialAccount" | "session" | "account" | "verification"
+    modelProps: "user" | "contentUpload" | "session" | "account" | "verification"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -495,77 +495,77 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         }
       }
     }
-    SocialAccount: {
-      payload: Prisma.$SocialAccountPayload<ExtArgs>
-      fields: Prisma.SocialAccountFieldRefs
+    ContentUpload: {
+      payload: Prisma.$ContentUploadPayload<ExtArgs>
+      fields: Prisma.ContentUploadFieldRefs
       operations: {
         findUnique: {
-          args: Prisma.SocialAccountFindUniqueArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$SocialAccountPayload> | null
+          args: Prisma.ContentUploadFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ContentUploadPayload> | null
         }
         findUniqueOrThrow: {
-          args: Prisma.SocialAccountFindUniqueOrThrowArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$SocialAccountPayload>
+          args: Prisma.ContentUploadFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ContentUploadPayload>
         }
         findFirst: {
-          args: Prisma.SocialAccountFindFirstArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$SocialAccountPayload> | null
+          args: Prisma.ContentUploadFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ContentUploadPayload> | null
         }
         findFirstOrThrow: {
-          args: Prisma.SocialAccountFindFirstOrThrowArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$SocialAccountPayload>
+          args: Prisma.ContentUploadFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ContentUploadPayload>
         }
         findMany: {
-          args: Prisma.SocialAccountFindManyArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$SocialAccountPayload>[]
+          args: Prisma.ContentUploadFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ContentUploadPayload>[]
         }
         create: {
-          args: Prisma.SocialAccountCreateArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$SocialAccountPayload>
+          args: Prisma.ContentUploadCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ContentUploadPayload>
         }
         createMany: {
-          args: Prisma.SocialAccountCreateManyArgs<ExtArgs>
+          args: Prisma.ContentUploadCreateManyArgs<ExtArgs>
           result: BatchPayload
         }
         createManyAndReturn: {
-          args: Prisma.SocialAccountCreateManyAndReturnArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$SocialAccountPayload>[]
+          args: Prisma.ContentUploadCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ContentUploadPayload>[]
         }
         delete: {
-          args: Prisma.SocialAccountDeleteArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$SocialAccountPayload>
+          args: Prisma.ContentUploadDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ContentUploadPayload>
         }
         update: {
-          args: Prisma.SocialAccountUpdateArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$SocialAccountPayload>
+          args: Prisma.ContentUploadUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ContentUploadPayload>
         }
         deleteMany: {
-          args: Prisma.SocialAccountDeleteManyArgs<ExtArgs>
+          args: Prisma.ContentUploadDeleteManyArgs<ExtArgs>
           result: BatchPayload
         }
         updateMany: {
-          args: Prisma.SocialAccountUpdateManyArgs<ExtArgs>
+          args: Prisma.ContentUploadUpdateManyArgs<ExtArgs>
           result: BatchPayload
         }
         updateManyAndReturn: {
-          args: Prisma.SocialAccountUpdateManyAndReturnArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$SocialAccountPayload>[]
+          args: Prisma.ContentUploadUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ContentUploadPayload>[]
         }
         upsert: {
-          args: Prisma.SocialAccountUpsertArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$SocialAccountPayload>
+          args: Prisma.ContentUploadUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ContentUploadPayload>
         }
         aggregate: {
-          args: Prisma.SocialAccountAggregateArgs<ExtArgs>
-          result: runtime.Types.Utils.Optional<Prisma.AggregateSocialAccount>
+          args: Prisma.ContentUploadAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateContentUpload>
         }
         groupBy: {
-          args: Prisma.SocialAccountGroupByArgs<ExtArgs>
-          result: runtime.Types.Utils.Optional<Prisma.SocialAccountGroupByOutputType>[]
+          args: Prisma.ContentUploadGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.ContentUploadGroupByOutputType>[]
         }
         count: {
-          args: Prisma.SocialAccountCountArgs<ExtArgs>
-          result: runtime.Types.Utils.Optional<Prisma.SocialAccountCountAggregateOutputType> | number
+          args: Prisma.ContentUploadCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.ContentUploadCountAggregateOutputType> | number
         }
       }
     }
@@ -844,22 +844,21 @@ export const UserScalarFieldEnum = {
 export type UserScalarFieldEnum = (typeof UserScalarFieldEnum)[keyof typeof UserScalarFieldEnum]
 
 
-export const SocialAccountScalarFieldEnum = {
+export const ContentUploadScalarFieldEnum = {
   id: 'id',
-  userId: 'userId',
   platform: 'platform',
-  platformAccountId: 'platformAccountId',
-  providerAccountId: 'providerAccountId',
-  social_username: 'social_username',
-  social_avatarUrl: 'social_avatarUrl',
-  accessToken: 'accessToken',
-  refreshToken: 'refreshToken',
-  expiresAt: 'expiresAt',
+  status: 'status',
+  userId: 'userId',
+  providerVideoId: 'providerVideoId',
+  sessionUri: 'sessionUri',
+  scheduledFor: 'scheduledFor',
+  errorMessage: 'errorMessage',
+  metadata: 'metadata',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 } as const
 
-export type SocialAccountScalarFieldEnum = (typeof SocialAccountScalarFieldEnum)[keyof typeof SocialAccountScalarFieldEnum]
+export type ContentUploadScalarFieldEnum = (typeof ContentUploadScalarFieldEnum)[keyof typeof ContentUploadScalarFieldEnum]
 
 
 export const SessionScalarFieldEnum = {
@@ -915,6 +914,14 @@ export const SortOrder = {
 export type SortOrder = (typeof SortOrder)[keyof typeof SortOrder]
 
 
+export const NullableJsonNullValueInput = {
+  DbNull: DbNull,
+  JsonNull: JsonNull
+} as const
+
+export type NullableJsonNullValueInput = (typeof NullableJsonNullValueInput)[keyof typeof NullableJsonNullValueInput]
+
+
 export const QueryMode = {
   default: 'default',
   insensitive: 'insensitive'
@@ -929,6 +936,15 @@ export const NullsOrder = {
 } as const
 
 export type NullsOrder = (typeof NullsOrder)[keyof typeof NullsOrder]
+
+
+export const JsonNullValueFilter = {
+  DbNull: DbNull,
+  JsonNull: JsonNull,
+  AnyNull: AnyNull
+} as const
+
+export type JsonNullValueFilter = (typeof JsonNullValueFilter)[keyof typeof JsonNullValueFilter]
 
 
 
@@ -983,6 +999,34 @@ export type EnumPlatformFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaM
  * Reference to a field of type 'Platform[]'
  */
 export type ListEnumPlatformFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Platform[]'>
+    
+
+
+/**
+ * Reference to a field of type 'UploadStatus'
+ */
+export type EnumUploadStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'UploadStatus'>
+    
+
+
+/**
+ * Reference to a field of type 'UploadStatus[]'
+ */
+export type ListEnumUploadStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'UploadStatus[]'>
+    
+
+
+/**
+ * Reference to a field of type 'Json'
+ */
+export type JsonFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Json'>
+    
+
+
+/**
+ * Reference to a field of type 'QueryMode'
+ */
+export type EnumQueryModeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'QueryMode'>
     
 
 
@@ -1151,7 +1195,7 @@ export interface PrismaClientOptionsWithAdapter extends PrismaClientBaseOptions 
 export type PrismaClientOptions = PrismaClientOptionsWithAccelerateUrl | PrismaClientOptionsWithAdapter
 export type GlobalOmitConfig = {
   user?: Prisma.UserOmit
-  socialAccount?: Prisma.SocialAccountOmit
+  contentUpload?: Prisma.ContentUploadOmit
   session?: Prisma.SessionOmit
   account?: Prisma.AccountOmit
   verification?: Prisma.VerificationOmit

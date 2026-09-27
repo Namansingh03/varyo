@@ -28,7 +28,7 @@ app.get("/api/health", (_req, res) => {
   });
 });
 
-app.use("/api/social", socialRoutes);
+app.use("/api/socials", socialRoutes);
 app.use("/api/youtube", youtubeRoutes);
 
 app.listen(env.PORT, () => {

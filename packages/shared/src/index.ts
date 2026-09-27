@@ -1,1 +1,1 @@
-export * from "./constants/scope";
+export * from "./constants/youtube/youtube.scopes";
