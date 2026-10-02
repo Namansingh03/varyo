@@ -10,8 +10,12 @@ import {
 } from "../schemas/social.schemas";
 import { auth } from "../lib/auth";
 import { fromNodeHeaders } from "better-auth/node";
+import { minIo } from "../config/minio";
+import { randomUUID } from "crypto";
 
 const socialRouter: RouterType = Router();
+
+const MAX_SIZE = 2 * 1024 * 1024 * 1024;
 
 socialRouter.post("/connect", async (req: Request, res: Response) => {
   const parse_result = socialConnectSchema.safeParse(req.body);
@@ -55,7 +59,8 @@ socialRouter.post("/connect", async (req: Request, res: Response) => {
     if (!authResponse.ok || !payload.url) {
       return res.status(authResponse.status || 500).json({
         success: false,
-        message: payload.message ?? "unable to start the provider authorization flow",
+        message:
+          payload.message ?? "unable to start the provider authorization flow",
         data: null,
       });
     }
@@ -75,9 +80,58 @@ socialRouter.post("/connect", async (req: Request, res: Response) => {
 
     return res.status(Number.isInteger(status) ? status : 500).json({
       success: false,
-      message:
-        error instanceof Error ? error.message : "something went wrong",
+      message: error instanceof Error ? error.message : "something went wrong",
       data: null,
+    });
+  }
+});
+
+socialRouter.post("/presigned", async (req: Request, res: Response) => {
+  try {
+    const { contentType, contentSize } = req.body;
+
+    if (!/^video\/(mp4|quicktime|webm)$/.test(contentType))
+      return res.status(400).json({
+        success: false,
+        data: null,
+        message: "file type not supported",
+      });
+    if (!contentSize || contentSize > MAX_SIZE)
+      return res.status(400).json({
+        success: false,
+        data: null,
+        message: "file too large",
+      });
+
+    const session = await auth.api.getSession({
+      headers: fromNodeHeaders(req.headers),
+    });
+
+    if (!session?.user) {
+      return res.status(401).json({
+        success: false,
+        data: null,
+        message: "session not found",
+      });
+    }
+
+    const objectKey = `${session.user.id}/${randomUUID()}`;
+    const url = await minIo.presignedPutObject("videos", objectKey, 15 * 60);
+
+    return res.status(201).json({
+      success: true,
+      data: JSON.stringify({
+        minioUrl: url,
+        minioObjectKey: objectKey,
+      }),
+      message: "signed url created successfully",
+    });
+  } catch (error) {
+    console.log("something went wrong while creating signed url", error);
+    return res.status(500).json({
+      success: false,
+      data: null,
+      message: "something went wrong while creating signed url",
     });
   }
 });

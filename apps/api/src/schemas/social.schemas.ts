@@ -2,6 +2,8 @@ import { z } from "zod";
 
 export const socialProviderEnum = z.enum(["YOUTUBE"]);
 
+const MAX_SIZE = 2 * 1024 * 1024 * 1024;
+
 type socialProviderEnumType = z.infer<typeof socialProviderEnum>;
 
 const socialConnectSchema = z.object({

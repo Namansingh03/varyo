@@ -20,10 +20,10 @@ export type Platform = (typeof Platform)[keyof typeof Platform]
 
 
 export const UploadStatus = {
-  PENDING: 'PENDING',
-  PROCESSING: 'PROCESSING',
+  SCHEDULED: 'SCHEDULED',
   COMPLETED: 'COMPLETED',
-  FAILED: 'FAILED'
+  FAILED: 'FAILED',
+  PENDING: 'PENDING'
 } as const
 
 export type UploadStatus = (typeof UploadStatus)[keyof typeof UploadStatus]

@@ -99,8 +99,8 @@ enum Platform {
 }
 
 enum UploadStatus {
-  PENDING
-  PROCESSING
+  SCHEDULED
   COMPLETED
   FAILED
+  PENDING
 }

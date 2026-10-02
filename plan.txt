@@ -2,3 +2,7 @@ better-auth :
    1. add email and password link
    2. forgot password
    3. reset password
+
+dos : 
+   1. generate and store a video upload link 
+   2. upload video through video uplaod link

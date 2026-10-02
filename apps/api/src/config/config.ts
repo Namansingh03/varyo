@@ -17,6 +17,14 @@ const envConfigSchema = z.object({
   GOOGLE_SECRET_KEY: z.string().min(1),
 
   DATABASE_URL: z.url(),
+
+  MINIO_ROOT_ACCESS_KEY: z.string(),
+  MINIO_ROOT_SECRET_KEY: z.string(),
+  MINIO_HOST_NAME: z.string(),
+  MINIO_PORT: z.number().min(9000).max(9010),
+
+  REDIS_HOST: z.string(),
+  REDIS_PORT: z.number(),
 });
 
 export const env = envConfigSchema.parse(process.env);
