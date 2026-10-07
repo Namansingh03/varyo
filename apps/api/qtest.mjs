@@ -1,0 +1,10 @@
+import { Queue } from "bullmq";
+import Redis from "ioredis";
+const redis = new Redis({ host: "localhost", port: 6379 });
+redis.on("connect", () => console.log("ioredis connect event"));
+const q = new Queue("uploadVideo", { connection: redis });
+await q.add("probe", { x: 1 }, { delay: 60000, jobId: "probe-" + Date.now() });
+console.log("added");
+const keys = await redis.keys("bull*");
+console.log("bull keys:", keys);
+await q.close();

@@ -105,7 +105,7 @@ youtubeRoutes.post("/schedule", async (req: Request, res: Response) => {
     const account = await prisma.account.findFirst({
       where: {
         userId: session.user.id,
-        providerId: "youtube",
+        providerId: "google",
       },
       select: {
         id: true,

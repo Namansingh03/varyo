@@ -2,10 +2,11 @@ import cors from "cors";
 import dotenv from "dotenv";
 import express from "express";
 import { auth } from "./lib/auth";
-import { env } from "./lib/config";
+import { env } from "./config/config";
 import { toNodeHandler } from "better-auth/node";
 import socialRoutes from "./routes/social.routes";
 import youtubeRoutes from "./routes/youtube.routes";
+import { ensureBucket } from "./config/minio";
 
 dotenv.config();
 
@@ -33,4 +34,7 @@ app.use("/api/youtube", youtubeRoutes);
 
 app.listen(env.PORT, () => {
   console.log(`Varyo API running on http://localhost:${env.PORT}`);
+  ensureBucket()
+    .then(() => console.log(`bucket "videos" ready`))
+    .catch((err) => console.error("failed to ensure bucket", err));
 });

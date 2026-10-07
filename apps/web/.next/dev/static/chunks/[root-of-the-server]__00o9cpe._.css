@@ -32,7 +32,7 @@
   font-weight: 100 900;
   font-display: swap;
   src: url("../media/7178b3e590c64307-s.21jp631_3pja2.woff2") format("woff2");
-  unicode-range: U+100-2BA, U+2BD-2C5, U+2C7-2CC, U+2CE-2D7, U+2DD-2FF, U+304, U+308, U+329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+  unicode-range: U+100-2BA, U+2BD-2C5, U+2C7-2CC, U+2CE-2D7, U+2DD-2FF, U+304, U+308, U+329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C4, U+2113, U+2C60-2C7F, U+A720-A7FF;
 }
 
 @font-face {
@@ -105,7 +105,7 @@
   font-weight: 100 900;
   font-display: swap;
   src: url("../media/bbc41e54d2fcbd21-s.1rgnod-3esatf.woff2") format("woff2");
-  unicode-range: U+100-2BA, U+2BD-2C5, U+2C7-2CC, U+2CE-2D7, U+2DD-2FF, U+304, U+308, U+329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+  unicode-range: U+100-2BA, U+2BD-2C5, U+2C7-2CC, U+2CE-2D7, U+2DD-2FF, U+304, U+308, U+329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C4, U+2113, U+2C60-2C7F, U+A720-A7FF;
 }
 
 @font-face {
@@ -196,6 +196,7 @@
   :root, :host {
     --font-sans: var(--font-sans);
     --color-red-500: #fb2c36;
+    --color-red-600: #e40014;
     --color-indigo-950: #1e1a4d;
     --color-gray-500: #6a7282;
     --color-neutral-100: #f5f5f5;
@@ -218,6 +219,7 @@
   @supports (color: lab(0% 0 0)) {
     :root, :host {
       --color-red-500: lab(55.4814% 75.0732 48.8528);
+      --color-red-600: lab(48.4493% 77.4328 61.5452);
       --color-indigo-950: lab(12.4853% 14.9672 -31.3418);
       --color-gray-500: lab(47.7841% -.393182 -10.0268);
       --color-neutral-100: lab(96.52% -.0000298023 .0000119209);
@@ -598,6 +600,12 @@
     gap: calc(var(--spacing) * 4);
   }
 
+  :where(.space-y-3 > :not(:last-child)) {
+    --tw-space-y-reverse: 0;
+    margin-block-start: calc(calc(var(--spacing) * 3) * var(--tw-space-y-reverse));
+    margin-block-end: calc(calc(var(--spacing) * 3) * calc(1 - var(--tw-space-y-reverse)));
+  }
+
   :where(.space-y-4 > :not(:last-child)) {
     --tw-space-y-reverse: 0;
     margin-block-start: calc(calc(var(--spacing) * 4) * var(--tw-space-y-reverse));
@@ -671,12 +679,20 @@
     background-color: var(--secondary);
   }
 
+  .bg-white {
+    background-color: var(--color-white);
+  }
+
   .bg-clip-padding {
     background-clip: padding-box;
   }
 
   .p-4 {
     padding: calc(var(--spacing) * 4);
+  }
+
+  .p-5 {
+    padding: calc(var(--spacing) * 5);
   }
 
   .px-2 {
@@ -741,6 +757,10 @@
 
   .text-red-500 {
     color: var(--color-red-500);
+  }
+
+  .text-red-600 {
+    color: var(--color-red-600);
   }
 
   .text-secondary-foreground {

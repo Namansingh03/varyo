@@ -61,7 +61,6 @@ new Worker(
       data: {
         status: "SCHEDULED",
         contentId: video.id,
-        publishedAt: new Date(),
       },
     });
   },
