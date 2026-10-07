@@ -8,9 +8,10 @@ import { google } from "googleapis";
 import { getUserAccessTokens } from "../utils/getUserAccessToken";
 import { prisma } from "../lib/prisma";
 import { scheduleFileSchema } from "../schemas/youtube.schema";
-import { minIo } from "../config/minio";
+import { minIo, BUCKET } from "../config/minio";
 import { fromNodeHeaders } from "better-auth/node";
 import { auth } from "../lib/auth";
+import { uploadVideoQueue } from "../config/queue";
 
 const youtubeRoutes: RouterType = Router();
 
@@ -70,7 +71,7 @@ youtubeRoutes.post("/schedule", async (req: Request, res: Response) => {
     const { description, objectKey, scheduledAt, title } = data;
 
     try {
-      await minIo.statObject("videos", objectKey);
+      await minIo.statObject(BUCKET, objectKey);
     } catch {
       return res.status(400).json({ error: "Video not found in storage" });
     }
@@ -87,7 +88,7 @@ youtubeRoutes.post("/schedule", async (req: Request, res: Response) => {
       });
     }
 
-    await prisma.contentUpload.create({
+    const post = await prisma.contentUpload.create({
       data: {
         userId: session.user.id,
         platform: "YOUTUBE",
@@ -101,7 +102,52 @@ youtubeRoutes.post("/schedule", async (req: Request, res: Response) => {
       },
     });
 
-    //todo : add a bullMq worker to publish
+    const account = await prisma.account.findFirst({
+      where: {
+        userId: session.user.id,
+        providerId: "youtube",
+      },
+      select: {
+        id: true,
+      },
+    });
+
+    if (!account?.id) {
+      return res.status(501).json({
+        success: false,
+        data: null,
+        message: "linked account not found",
+      });
+    }
+
+    const access_token = await auth.api.getAccessToken({
+      body: {
+        accountId: account.id,
+      },
+      headers: fromNodeHeaders(req.headers),
+    });
+
+    await uploadVideoQueue.add(
+      "publish-youtube",
+      {
+        postId: post.id,
+        accessToken: access_token.accessToken,
+        contentSize: data.size,
+      },
+      {
+        delay: Math.max(0, new Date(scheduledAt).getTime() - Date.now()),
+        jobId: post.id,
+        attempts: 5,
+        backoff: { type: "exponential", delay: 60_000 },
+        removeOnComplete: true,
+      },
+    );
+
+    return res.status(201).json({
+      success: true,
+      data: null,
+      message: "post scheduled for upload",
+    });
   } catch (error) {
     console.log("something went wrong while scheduling the upload", error);
     return res.status(500).json({

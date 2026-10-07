@@ -1,6 +1,3 @@
-// This is your Prisma schema file,
-
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
 generator client {
   provider = "prisma-client"
   output   = "./generated/prisma"
@@ -25,18 +22,18 @@ model User {
 }
 
 model ContentUpload {
-  id              String       @id @default(cuid())
-  platform        Platform
-  status          UploadStatus @default(PENDING)
-  userId          String
-  user            User         @relation(fields: [userId], references: [id], onDelete: Cascade)
-  providerVideoId String?
-  sessionUri      String?
-  scheduledFor    DateTime?
-  errorMessage    String?
-  metadata        Json?
-  createdAt       DateTime     @default(now())
-  updatedAt       DateTime     @updatedAt
+  id           String       @id @default(cuid())
+  platform     Platform
+  status       UploadStatus @default(PENDING)
+  userId       String
+  user         User         @relation(fields: [userId], references: [id], onDelete: Cascade)
+  sessionUri   String?
+  contentId    String?
+  scheduledFor DateTime?
+  errorMessage String?
+  metadata     Json?
+  createdAt    DateTime     @default(now())
+  updatedAt    DateTime     @updatedAt
 
   @@index([userId, platform])
   @@index([platform, status])

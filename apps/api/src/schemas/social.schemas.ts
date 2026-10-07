@@ -1,12 +1,11 @@
 import { z } from "zod";
+import { MAX_SIZE } from "../constants/youtube.constant";
 
 export const socialProviderEnum = z.enum(["YOUTUBE"]);
 
-const MAX_SIZE = 2 * 1024 * 1024 * 1024;
-
 type socialProviderEnumType = z.infer<typeof socialProviderEnum>;
 
-const socialConnectSchema = z.object({
+export const socialConnectSchema = z.object({
   provider: socialProviderEnum,
   scopes: z.array(z.string()),
   callbackURL: z
@@ -19,16 +18,13 @@ const socialConnectSchema = z.object({
     .optional(),
 });
 
-type socialConnectSchemaType = z.infer<typeof socialConnectSchema>;
-
-const SOCIAL_PROVIDER_BY_PLATFORM = {
+export const SOCIAL_PROVIDER_BY_PLATFORM = {
   YOUTUBE: "google",
 } as const satisfies Record<socialProviderEnumType, string>;
 
-function resolveSocialProvider(platform: socialProviderEnumType) {
+export function resolveSocialProvider(platform: socialProviderEnumType) {
   return SOCIAL_PROVIDER_BY_PLATFORM[platform];
 }
 
-export { socialConnectSchema, resolveSocialProvider };
-
+type socialConnectSchemaType = z.infer<typeof socialConnectSchema>;
 export type { socialConnectSchemaType, socialProviderEnumType };

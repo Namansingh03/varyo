@@ -4,5 +4,5 @@ better-auth :
    3. reset password
 
 dos : 
-   1. generate and store a video upload link 
-   2. upload video through video uplaod link
+   1. write bullmq worker
+   2. add all fields for upload

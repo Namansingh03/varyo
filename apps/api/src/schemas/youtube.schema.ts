@@ -1,4 +1,5 @@
 import { z } from "zod";
+import { MAX_SIZE } from "../constants/youtube.constant";
 
 const scheduleFileSchema = z.object({
   objectKey: z.string(),
@@ -8,6 +9,7 @@ const scheduleFileSchema = z.object({
     .max(20, "title can be of max 20 length"),
   description: z.string().max(100, "description can be of max 100"),
   scheduledAt: z.date(),
+  size: z.number().max(MAX_SIZE).min(1),
 });
 
 export { scheduleFileSchema };

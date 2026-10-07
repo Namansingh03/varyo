@@ -10,7 +10,7 @@ import {
 } from "../schemas/social.schemas";
 import { auth } from "../lib/auth";
 import { fromNodeHeaders } from "better-auth/node";
-import { minIo } from "../config/minio";
+import { minIo, BUCKET } from "../config/minio";
 import { randomUUID } from "crypto";
 
 const socialRouter: RouterType = Router();
@@ -88,7 +88,7 @@ socialRouter.post("/connect", async (req: Request, res: Response) => {
 
 socialRouter.post("/presigned", async (req: Request, res: Response) => {
   try {
-    const { contentType, contentSize } = req.body;
+    const { contentType, contentSize, provider } = req.body;
 
     if (!/^video\/(mp4|quicktime|webm)$/.test(contentType))
       return res.status(400).json({
@@ -115,14 +115,15 @@ socialRouter.post("/presigned", async (req: Request, res: Response) => {
       });
     }
 
-    const objectKey = `${session.user.id}/${randomUUID()}`;
-    const url = await minIo.presignedPutObject("videos", objectKey, 15 * 60);
+    const objectKey = `${session.user.id}/${provider}/${randomUUID()}`;
+    const url = await minIo.presignedPutObject(BUCKET, objectKey, 15 * 60);
 
     return res.status(201).json({
       success: true,
       data: JSON.stringify({
         minioUrl: url,
         minioObjectKey: objectKey,
+        contentSize,
       }),
       message: "signed url created successfully",
     });

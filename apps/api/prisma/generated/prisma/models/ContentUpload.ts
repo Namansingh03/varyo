@@ -29,8 +29,8 @@ export type ContentUploadMinAggregateOutputType = {
   platform: $Enums.Platform | null
   status: $Enums.UploadStatus | null
   userId: string | null
-  providerVideoId: string | null
   sessionUri: string | null
+  contentId: string | null
   scheduledFor: Date | null
   errorMessage: string | null
   createdAt: Date | null
@@ -42,8 +42,8 @@ export type ContentUploadMaxAggregateOutputType = {
   platform: $Enums.Platform | null
   status: $Enums.UploadStatus | null
   userId: string | null
-  providerVideoId: string | null
   sessionUri: string | null
+  contentId: string | null
   scheduledFor: Date | null
   errorMessage: string | null
   createdAt: Date | null
@@ -55,8 +55,8 @@ export type ContentUploadCountAggregateOutputType = {
   platform: number
   status: number
   userId: number
-  providerVideoId: number
   sessionUri: number
+  contentId: number
   scheduledFor: number
   errorMessage: number
   metadata: number
@@ -71,8 +71,8 @@ export type ContentUploadMinAggregateInputType = {
   platform?: true
   status?: true
   userId?: true
-  providerVideoId?: true
   sessionUri?: true
+  contentId?: true
   scheduledFor?: true
   errorMessage?: true
   createdAt?: true
@@ -84,8 +84,8 @@ export type ContentUploadMaxAggregateInputType = {
   platform?: true
   status?: true
   userId?: true
-  providerVideoId?: true
   sessionUri?: true
+  contentId?: true
   scheduledFor?: true
   errorMessage?: true
   createdAt?: true
@@ -97,8 +97,8 @@ export type ContentUploadCountAggregateInputType = {
   platform?: true
   status?: true
   userId?: true
-  providerVideoId?: true
   sessionUri?: true
+  contentId?: true
   scheduledFor?: true
   errorMessage?: true
   metadata?: true
@@ -184,8 +184,8 @@ export type ContentUploadGroupByOutputType = {
   platform: $Enums.Platform
   status: $Enums.UploadStatus
   userId: string
-  providerVideoId: string | null
   sessionUri: string | null
+  contentId: string | null
   scheduledFor: Date | null
   errorMessage: string | null
   metadata: runtime.JsonValue | null
@@ -219,8 +219,8 @@ export type ContentUploadWhereInput = {
   platform?: Prisma.EnumPlatformFilter<"ContentUpload"> | $Enums.Platform
   status?: Prisma.EnumUploadStatusFilter<"ContentUpload"> | $Enums.UploadStatus
   userId?: Prisma.StringFilter<"ContentUpload"> | string
-  providerVideoId?: Prisma.StringNullableFilter<"ContentUpload"> | string | null
   sessionUri?: Prisma.StringNullableFilter<"ContentUpload"> | string | null
+  contentId?: Prisma.StringNullableFilter<"ContentUpload"> | string | null
   scheduledFor?: Prisma.DateTimeNullableFilter<"ContentUpload"> | Date | string | null
   errorMessage?: Prisma.StringNullableFilter<"ContentUpload"> | string | null
   metadata?: Prisma.JsonNullableFilter<"ContentUpload">
@@ -234,8 +234,8 @@ export type ContentUploadOrderByWithRelationInput = {
   platform?: Prisma.SortOrder
   status?: Prisma.SortOrder
   userId?: Prisma.SortOrder
-  providerVideoId?: Prisma.SortOrderInput | Prisma.SortOrder
   sessionUri?: Prisma.SortOrderInput | Prisma.SortOrder
+  contentId?: Prisma.SortOrderInput | Prisma.SortOrder
   scheduledFor?: Prisma.SortOrderInput | Prisma.SortOrder
   errorMessage?: Prisma.SortOrderInput | Prisma.SortOrder
   metadata?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -252,8 +252,8 @@ export type ContentUploadWhereUniqueInput = Prisma.AtLeast<{
   platform?: Prisma.EnumPlatformFilter<"ContentUpload"> | $Enums.Platform
   status?: Prisma.EnumUploadStatusFilter<"ContentUpload"> | $Enums.UploadStatus
   userId?: Prisma.StringFilter<"ContentUpload"> | string
-  providerVideoId?: Prisma.StringNullableFilter<"ContentUpload"> | string | null
   sessionUri?: Prisma.StringNullableFilter<"ContentUpload"> | string | null
+  contentId?: Prisma.StringNullableFilter<"ContentUpload"> | string | null
   scheduledFor?: Prisma.DateTimeNullableFilter<"ContentUpload"> | Date | string | null
   errorMessage?: Prisma.StringNullableFilter<"ContentUpload"> | string | null
   metadata?: Prisma.JsonNullableFilter<"ContentUpload">
@@ -267,8 +267,8 @@ export type ContentUploadOrderByWithAggregationInput = {
   platform?: Prisma.SortOrder
   status?: Prisma.SortOrder
   userId?: Prisma.SortOrder
-  providerVideoId?: Prisma.SortOrderInput | Prisma.SortOrder
   sessionUri?: Prisma.SortOrderInput | Prisma.SortOrder
+  contentId?: Prisma.SortOrderInput | Prisma.SortOrder
   scheduledFor?: Prisma.SortOrderInput | Prisma.SortOrder
   errorMessage?: Prisma.SortOrderInput | Prisma.SortOrder
   metadata?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -287,8 +287,8 @@ export type ContentUploadScalarWhereWithAggregatesInput = {
   platform?: Prisma.EnumPlatformWithAggregatesFilter<"ContentUpload"> | $Enums.Platform
   status?: Prisma.EnumUploadStatusWithAggregatesFilter<"ContentUpload"> | $Enums.UploadStatus
   userId?: Prisma.StringWithAggregatesFilter<"ContentUpload"> | string
-  providerVideoId?: Prisma.StringNullableWithAggregatesFilter<"ContentUpload"> | string | null
   sessionUri?: Prisma.StringNullableWithAggregatesFilter<"ContentUpload"> | string | null
+  contentId?: Prisma.StringNullableWithAggregatesFilter<"ContentUpload"> | string | null
   scheduledFor?: Prisma.DateTimeNullableWithAggregatesFilter<"ContentUpload"> | Date | string | null
   errorMessage?: Prisma.StringNullableWithAggregatesFilter<"ContentUpload"> | string | null
   metadata?: Prisma.JsonNullableWithAggregatesFilter<"ContentUpload">
@@ -300,8 +300,8 @@ export type ContentUploadCreateInput = {
   id?: string
   platform: $Enums.Platform
   status?: $Enums.UploadStatus
-  providerVideoId?: string | null
   sessionUri?: string | null
+  contentId?: string | null
   scheduledFor?: Date | string | null
   errorMessage?: string | null
   metadata?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
@@ -315,8 +315,8 @@ export type ContentUploadUncheckedCreateInput = {
   platform: $Enums.Platform
   status?: $Enums.UploadStatus
   userId: string
-  providerVideoId?: string | null
   sessionUri?: string | null
+  contentId?: string | null
   scheduledFor?: Date | string | null
   errorMessage?: string | null
   metadata?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
@@ -328,8 +328,8 @@ export type ContentUploadUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   platform?: Prisma.EnumPlatformFieldUpdateOperationsInput | $Enums.Platform
   status?: Prisma.EnumUploadStatusFieldUpdateOperationsInput | $Enums.UploadStatus
-  providerVideoId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   sessionUri?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  contentId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   scheduledFor?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   errorMessage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   metadata?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
@@ -343,8 +343,8 @@ export type ContentUploadUncheckedUpdateInput = {
   platform?: Prisma.EnumPlatformFieldUpdateOperationsInput | $Enums.Platform
   status?: Prisma.EnumUploadStatusFieldUpdateOperationsInput | $Enums.UploadStatus
   userId?: Prisma.StringFieldUpdateOperationsInput | string
-  providerVideoId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   sessionUri?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  contentId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   scheduledFor?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   errorMessage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   metadata?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
@@ -357,8 +357,8 @@ export type ContentUploadCreateManyInput = {
   platform: $Enums.Platform
   status?: $Enums.UploadStatus
   userId: string
-  providerVideoId?: string | null
   sessionUri?: string | null
+  contentId?: string | null
   scheduledFor?: Date | string | null
   errorMessage?: string | null
   metadata?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
@@ -370,8 +370,8 @@ export type ContentUploadUpdateManyMutationInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   platform?: Prisma.EnumPlatformFieldUpdateOperationsInput | $Enums.Platform
   status?: Prisma.EnumUploadStatusFieldUpdateOperationsInput | $Enums.UploadStatus
-  providerVideoId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   sessionUri?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  contentId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   scheduledFor?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   errorMessage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   metadata?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
@@ -384,8 +384,8 @@ export type ContentUploadUncheckedUpdateManyInput = {
   platform?: Prisma.EnumPlatformFieldUpdateOperationsInput | $Enums.Platform
   status?: Prisma.EnumUploadStatusFieldUpdateOperationsInput | $Enums.UploadStatus
   userId?: Prisma.StringFieldUpdateOperationsInput | string
-  providerVideoId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   sessionUri?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  contentId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   scheduledFor?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   errorMessage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   metadata?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
@@ -408,8 +408,8 @@ export type ContentUploadCountOrderByAggregateInput = {
   platform?: Prisma.SortOrder
   status?: Prisma.SortOrder
   userId?: Prisma.SortOrder
-  providerVideoId?: Prisma.SortOrder
   sessionUri?: Prisma.SortOrder
+  contentId?: Prisma.SortOrder
   scheduledFor?: Prisma.SortOrder
   errorMessage?: Prisma.SortOrder
   metadata?: Prisma.SortOrder
@@ -422,8 +422,8 @@ export type ContentUploadMaxOrderByAggregateInput = {
   platform?: Prisma.SortOrder
   status?: Prisma.SortOrder
   userId?: Prisma.SortOrder
-  providerVideoId?: Prisma.SortOrder
   sessionUri?: Prisma.SortOrder
+  contentId?: Prisma.SortOrder
   scheduledFor?: Prisma.SortOrder
   errorMessage?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
@@ -435,8 +435,8 @@ export type ContentUploadMinOrderByAggregateInput = {
   platform?: Prisma.SortOrder
   status?: Prisma.SortOrder
   userId?: Prisma.SortOrder
-  providerVideoId?: Prisma.SortOrder
   sessionUri?: Prisma.SortOrder
+  contentId?: Prisma.SortOrder
   scheduledFor?: Prisma.SortOrder
   errorMessage?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
@@ -501,8 +501,8 @@ export type ContentUploadCreateWithoutUserInput = {
   id?: string
   platform: $Enums.Platform
   status?: $Enums.UploadStatus
-  providerVideoId?: string | null
   sessionUri?: string | null
+  contentId?: string | null
   scheduledFor?: Date | string | null
   errorMessage?: string | null
   metadata?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
@@ -514,8 +514,8 @@ export type ContentUploadUncheckedCreateWithoutUserInput = {
   id?: string
   platform: $Enums.Platform
   status?: $Enums.UploadStatus
-  providerVideoId?: string | null
   sessionUri?: string | null
+  contentId?: string | null
   scheduledFor?: Date | string | null
   errorMessage?: string | null
   metadata?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
@@ -557,8 +557,8 @@ export type ContentUploadScalarWhereInput = {
   platform?: Prisma.EnumPlatformFilter<"ContentUpload"> | $Enums.Platform
   status?: Prisma.EnumUploadStatusFilter<"ContentUpload"> | $Enums.UploadStatus
   userId?: Prisma.StringFilter<"ContentUpload"> | string
-  providerVideoId?: Prisma.StringNullableFilter<"ContentUpload"> | string | null
   sessionUri?: Prisma.StringNullableFilter<"ContentUpload"> | string | null
+  contentId?: Prisma.StringNullableFilter<"ContentUpload"> | string | null
   scheduledFor?: Prisma.DateTimeNullableFilter<"ContentUpload"> | Date | string | null
   errorMessage?: Prisma.StringNullableFilter<"ContentUpload"> | string | null
   metadata?: Prisma.JsonNullableFilter<"ContentUpload">
@@ -570,8 +570,8 @@ export type ContentUploadCreateManyUserInput = {
   id?: string
   platform: $Enums.Platform
   status?: $Enums.UploadStatus
-  providerVideoId?: string | null
   sessionUri?: string | null
+  contentId?: string | null
   scheduledFor?: Date | string | null
   errorMessage?: string | null
   metadata?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
@@ -583,8 +583,8 @@ export type ContentUploadUpdateWithoutUserInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   platform?: Prisma.EnumPlatformFieldUpdateOperationsInput | $Enums.Platform
   status?: Prisma.EnumUploadStatusFieldUpdateOperationsInput | $Enums.UploadStatus
-  providerVideoId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   sessionUri?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  contentId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   scheduledFor?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   errorMessage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   metadata?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
@@ -596,8 +596,8 @@ export type ContentUploadUncheckedUpdateWithoutUserInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   platform?: Prisma.EnumPlatformFieldUpdateOperationsInput | $Enums.Platform
   status?: Prisma.EnumUploadStatusFieldUpdateOperationsInput | $Enums.UploadStatus
-  providerVideoId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   sessionUri?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  contentId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   scheduledFor?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   errorMessage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   metadata?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
@@ -609,8 +609,8 @@ export type ContentUploadUncheckedUpdateManyWithoutUserInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   platform?: Prisma.EnumPlatformFieldUpdateOperationsInput | $Enums.Platform
   status?: Prisma.EnumUploadStatusFieldUpdateOperationsInput | $Enums.UploadStatus
-  providerVideoId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   sessionUri?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  contentId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   scheduledFor?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   errorMessage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   metadata?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
@@ -625,8 +625,8 @@ export type ContentUploadSelect<ExtArgs extends runtime.Types.Extensions.Interna
   platform?: boolean
   status?: boolean
   userId?: boolean
-  providerVideoId?: boolean
   sessionUri?: boolean
+  contentId?: boolean
   scheduledFor?: boolean
   errorMessage?: boolean
   metadata?: boolean
@@ -640,8 +640,8 @@ export type ContentUploadSelectCreateManyAndReturn<ExtArgs extends runtime.Types
   platform?: boolean
   status?: boolean
   userId?: boolean
-  providerVideoId?: boolean
   sessionUri?: boolean
+  contentId?: boolean
   scheduledFor?: boolean
   errorMessage?: boolean
   metadata?: boolean
@@ -655,8 +655,8 @@ export type ContentUploadSelectUpdateManyAndReturn<ExtArgs extends runtime.Types
   platform?: boolean
   status?: boolean
   userId?: boolean
-  providerVideoId?: boolean
   sessionUri?: boolean
+  contentId?: boolean
   scheduledFor?: boolean
   errorMessage?: boolean
   metadata?: boolean
@@ -670,8 +670,8 @@ export type ContentUploadSelectScalar = {
   platform?: boolean
   status?: boolean
   userId?: boolean
-  providerVideoId?: boolean
   sessionUri?: boolean
+  contentId?: boolean
   scheduledFor?: boolean
   errorMessage?: boolean
   metadata?: boolean
@@ -679,7 +679,7 @@ export type ContentUploadSelectScalar = {
   updatedAt?: boolean
 }
 
-export type ContentUploadOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "platform" | "status" | "userId" | "providerVideoId" | "sessionUri" | "scheduledFor" | "errorMessage" | "metadata" | "createdAt" | "updatedAt", ExtArgs["result"]["contentUpload"]>
+export type ContentUploadOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "platform" | "status" | "userId" | "sessionUri" | "contentId" | "scheduledFor" | "errorMessage" | "metadata" | "createdAt" | "updatedAt", ExtArgs["result"]["contentUpload"]>
 export type ContentUploadInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }
@@ -700,8 +700,8 @@ export type $ContentUploadPayload<ExtArgs extends runtime.Types.Extensions.Inter
     platform: $Enums.Platform
     status: $Enums.UploadStatus
     userId: string
-    providerVideoId: string | null
     sessionUri: string | null
+    contentId: string | null
     scheduledFor: Date | null
     errorMessage: string | null
     metadata: runtime.JsonValue | null
@@ -1135,8 +1135,8 @@ export interface ContentUploadFieldRefs {
   readonly platform: Prisma.FieldRef<"ContentUpload", 'Platform'>
   readonly status: Prisma.FieldRef<"ContentUpload", 'UploadStatus'>
   readonly userId: Prisma.FieldRef<"ContentUpload", 'String'>
-  readonly providerVideoId: Prisma.FieldRef<"ContentUpload", 'String'>
   readonly sessionUri: Prisma.FieldRef<"ContentUpload", 'String'>
+  readonly contentId: Prisma.FieldRef<"ContentUpload", 'String'>
   readonly scheduledFor: Prisma.FieldRef<"ContentUpload", 'DateTime'>
   readonly errorMessage: Prisma.FieldRef<"ContentUpload", 'String'>
   readonly metadata: Prisma.FieldRef<"ContentUpload", 'Json'>
