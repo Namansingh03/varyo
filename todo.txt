@@ -1,0 +1,25 @@
+Fixes:
+- Added ScheduleVideoForm in apps/web/src/features/youtube/ + /schedule page, wired to real API routes (POST /api/socials/presigned, PUT to MinIO, POST /api/youtube/schedule) with correct response parsing (double-encoded `data`, `message` errors) and `size` field
+- Fixed broken config env imports: apps/api/src/lib/auth.ts and src/lib/prisma.ts now import from ../config/config (moved file was never updated; typecheck was failing)
+- Fixed apps/api/src/config/config.ts: MINIO_PORT and REDIS_PORT use z.coerce.number() (strings from .env crashed env parse on server boot)
+- Fixed apps/api/src/schemas/youtube.schema.ts: scheduledAt uses z.coerce.date() (ISO strings from the form always failed validation with 501)
+- Removed non-existent `publishedAt` field from apps/api/src/workers/youtube.workers.ts update (Prisma has no such column)
+- Fixed docker-compose minio service: image was `minio/warp` (load-test CLI, printed help and exited - nothing listened on :9000, caused the "something went wrong while creating presigned url" 500). minio/minio was deleted from Docker Hub and quay.io now 401s, so switched to `bitnamilegacy/minio` with volume at /bitnami/minio/data and restart policy
+- Fixed apps/api/src/config/minio.ts: useSSL false (compose serves plain HTTP on 9000)
+- ensureBucket() now runs on API startup (was never called; makeBucket was not awaited) - bucket "videos" is created automatically
+- Fixed apps/api/src/routes/youtube.routes.ts schedule route: account lookup uses providerId "google" (connect flow stores google, never "youtube" - every schedule failed with 501 "linked account not found")
+- Verified end-to-end: presign 201, browser CORS upload 200 (Access-Control-Allow-Origin: http://localhost:3000), schedule 201, BullMQ job queued, /schedule page renders, tsc --noEmit clean
+
+Todo Fixes:
+- Start the BullMQ worker (apps/api/src/workers/youtube.workers.ts is never started - scheduled videos never upload to YouTube):
+  - add maxRetriesPerRequest: null to apps/api/src/config/redis.ts (BullMQ v6 throws at Worker construction otherwise)
+  - invert guard: skip unless post.status === "SCHEDULED" (current code skips every scheduled post)
+  - parse post.metadata (stored double-encoded as JSON string; data.title/objectKey read back as undefined)
+  - fix X-Upload-Content-Length: String() -> String(job.data.contentSize) (empty header today)
+  - fetch fresh access token at execution time via auth.api.getAccessToken({ body: { accountId, userId } }) instead of the stale token baked into job data at schedule time (expires ~1h; auto-refreshes via refreshToken)
+  - success -> status "COMPLETED" + contentId (currently sets "SCHEDULED" again); final failed attempt -> status "FAILED" + errorMessage; add worker "failed"/"error" logging
+  - route: stop calling getAccessToken at schedule time; job data = { postId, contentSize }
+  - add scripts: apps/api "dev:worker": "tsx watch src/workers/youtube.workers.ts", "start:worker": "node dist/src/workers/youtube.workers.js"; root package.json run all three in parallel in "dev"
+- Redis split-brain: a native host redis-server (127.0.0.1:6379) intercepts loopback, so app BullMQ jobs go there while the compose redis container sits unused (docker exec shows no app keys). Works consistently as-is, but stop/disable the native redis to make the compose container authoritative
+- API response inconsistencies: POST /api/youtube/schedule returns 501 for zod validation failures and a bare { error } shape for missing object; presign returns `data` as a JSON string (double-encoded) - normalize to the { success, data, message } convention
+- Title/description limits mismatch: scheduleFileSchema caps title <= 20 / description <= 100, while packages/shared YOUTUBE_LIMITS allows title 100 / description 5000 bytes

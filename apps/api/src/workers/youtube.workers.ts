@@ -4,15 +4,14 @@ import { prisma } from "../lib/prisma";
 import { Worker } from "bullmq";
 import { YoutubeContentMetaData } from "../types/youtube.types";
 
-new Worker(
+export const uploadYtVideoWorker = new Worker(
   "uploadVideo",
   async (job) => {
+    console.log("yt worker is running");
     const post = await prisma.contentUpload.findUniqueOrThrow({
       where: { id: job.data.postId },
     });
 
-    // SCHEDULED is the state used by the scheduling route before the
-    // delayed job runs. Do not return for that state or the upload is skipped.
     if (post.status === "COMPLETED" || post.status === "FAILED") {
       return;
     }
@@ -51,9 +50,6 @@ new Worker(
     if (!uploadUrl) {
       throw new Error("YouTube did not return a resumable upload URL");
     }
-
-    // Stream the object from MinIO to YouTube. The frontend only completes
-    // after MinIO upload has finished and the scheduling API has verified it.
     const stream = await minIo.getObject(BUCKET, data.objectKey);
     const upload = await fetch(uploadUrl, {
       method: "PUT",

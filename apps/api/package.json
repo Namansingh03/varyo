@@ -5,6 +5,7 @@
   "private": true,
   "scripts": {
     "dev": "tsx watch src/server.ts",
+    "dev:worker": "tsc watch src/workers/test.worker.ts",
     "build": "tsc",
     "start": "bun run dist/src/server.js",
     "typecheck": "tsc --noEmit",
