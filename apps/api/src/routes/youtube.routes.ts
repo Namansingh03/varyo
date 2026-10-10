@@ -58,17 +58,18 @@ youtubeRoutes.get("/channel-details", async (req: Request, res: Response) => {
 
 youtubeRoutes.post("/schedule", async (req: Request, res: Response) => {
   try {
-    const { data, success } = await scheduleFileSchema.safeParse(req.body);
+    const parsed = scheduleFileSchema.safeParse(req.body);
 
-    if (!success) {
-      return res.status(501).json({
+    if (!parsed.success) {
+      return res.status(400).json({
         success: false,
         data: null,
         message: "invalid fields",
+        errors: parsed.error.issues,
       });
     }
 
-    const { description, objectKey, scheduledAt, title } = data;
+    const { description, objectKey, scheduledAt, title, size } = parsed.data;
 
     try {
       await minIo.statObject(BUCKET, objectKey);
@@ -88,60 +89,64 @@ youtubeRoutes.post("/schedule", async (req: Request, res: Response) => {
       });
     }
 
-    const post = await prisma.contentUpload.create({
-      data: {
-        userId: session.user.id,
-        platform: "YOUTUBE",
-        scheduledFor: scheduledAt,
-        status: "SCHEDULED",
-        metadata: JSON.stringify({
-          title,
-          description,
-          objectKey,
-        }),
-      },
-    });
-
     const account = await prisma.account.findFirst({
       where: {
         userId: session.user.id,
         providerId: "google",
       },
-      select: {
-        id: true,
-      },
+      select: { id: true },
     });
 
     if (!account?.id) {
-      return res.status(501).json({
+      return res.status(400).json({
         success: false,
         data: null,
         message: "linked account not found",
       });
     }
 
-    const access_token = await auth.api.getAccessToken({
-      body: {
-        accountId: account.id,
-      },
+    const accessTokenResult = await auth.api.getAccessToken({
+      body: { accountId: account.id },
       headers: fromNodeHeaders(req.headers),
     });
 
-    await uploadVideoQueue.add(
-      "publish-youtube",
-      {
-        postId: post.id,
-        accessToken: access_token.accessToken,
-        contentSize: data.size,
+    const post = await prisma.contentUpload.create({
+      data: {
+        userId: session.user.id,
+        platform: "YOUTUBE",
+        scheduledFor: scheduledAt,
+        status: "SCHEDULED",
+        // Prisma Json fields should receive an object, not a JSON-encoded string.
+        metadata: { title, description, objectKey },
       },
-      {
-        delay: Math.max(0, new Date(scheduledAt).getTime() - Date.now()),
-        jobId: post.id,
-        attempts: 5,
-        backoff: { type: "exponential", delay: 60_000 },
-        removeOnComplete: true,
-      },
-    );
+    });
+
+    try {
+      await uploadVideoQueue.add(
+        "publish-youtube",
+        {
+          postId: post.id,
+          accessToken: accessTokenResult.accessToken,
+          contentSize: size,
+        },
+        {
+          delay: Math.max(0, scheduledAt.getTime() - Date.now()),
+          jobId: post.id,
+          attempts: 5,
+          backoff: { type: "exponential", delay: 60_000 },
+          removeOnComplete: true,
+        },
+      );
+    } catch (queueError) {
+      await prisma.contentUpload.update({
+        where: { id: post.id },
+        data: {
+          status: "FAILED",
+          errorMessage: "Could not enqueue YouTube upload",
+        },
+      });
+      throw queueError;
+    }
 
     return res.status(201).json({
       success: true,
