@@ -1,5 +1,4 @@
 {
-  "/connect/page": "app/connect/page.js",
   "/page": "app/page.js",
   "/schedule/page": "app/schedule/page.js",
   "/youtube/page": "app/youtube/page.js"

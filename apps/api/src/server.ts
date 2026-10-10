@@ -7,6 +7,7 @@ import { toNodeHandler } from "better-auth/node";
 import socialRoutes from "./routes/social.routes";
 import youtubeRoutes from "./routes/youtube.routes";
 import { ensureBucket } from "./config/minio";
+import "./workers/workers";
 
 dotenv.config();
 

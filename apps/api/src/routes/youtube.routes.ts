@@ -58,13 +58,15 @@ youtubeRoutes.get("/channel-details", async (req: Request, res: Response) => {
 
 youtubeRoutes.post("/schedule", async (req: Request, res: Response) => {
   try {
-    const { data, success } = await scheduleFileSchema.safeParse(req.body);
+    const { data, success, error } = await scheduleFileSchema.safeParse(
+      req.body,
+    );
 
     if (!success) {
       return res.status(501).json({
         success: false,
         data: null,
-        message: "invalid fields",
+        message: error.issues[0].message ?? "invalid fields",
       });
     }
 

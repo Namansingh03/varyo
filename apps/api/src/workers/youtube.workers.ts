@@ -4,16 +4,17 @@ import { prisma } from "../lib/prisma";
 import { Worker } from "bullmq";
 import { YoutubeContentMetaData } from "../types/youtube.types";
 
-new Worker(
+export const uploadYtVideoWorker = new Worker(
   "uploadVideo",
   async (job) => {
+    console.log("yt worker is running");
     const post = await prisma.contentUpload.findUniqueOrThrow({
       where: {
         id: job.data.postId,
       },
     });
 
-    if (post.status === "SCHEDULED") {
+    if (post.status === "COMPLETED") {
       return;
     }
 
@@ -41,7 +42,6 @@ new Worker(
       );
     const uploadUrl = init.headers.get("location")!;
 
-    // (b) Stream the file from MinIO to that URL
     const stream = await minIo.getObject(BUCKET, data.objectKey);
     const upload = await fetch(uploadUrl, {
       method: "PUT",
@@ -50,8 +50,6 @@ new Worker(
         "Content-Type": "video/mp4",
       },
       body: stream as any,
-      // @ts-ignore required by Node's fetch for streaming bodies
-      duplex: "half",
     });
     if (!upload.ok) throw new Error(`YouTube upload failed: ${upload.status}`);
 
@@ -59,7 +57,7 @@ new Worker(
     await prisma.contentUpload.update({
       where: { id: post.id },
       data: {
-        status: "SCHEDULED",
+        status: "COMPLETED",
         contentId: video.id,
       },
     });
