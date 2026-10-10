@@ -14,7 +14,7 @@ export const uploadYtVideoWorker = new Worker(
       },
     });
 
-    if (post.status === "COMPLETED") {
+    if (post.status === "COMPLETED" || post.status === "FAILED") {
       return;
     }
 
