@@ -8,16 +8,21 @@ new Worker(
   "uploadVideo",
   async (job) => {
     const post = await prisma.contentUpload.findUniqueOrThrow({
-      where: {
-        id: job.data.postId,
-      },
+      where: { id: job.data.postId },
     });
 
-    if (post.status === "SCHEDULED") {
+    // SCHEDULED is the state used by the scheduling route before the
+    // delayed job runs. Do not return for that state or the upload is skipped.
+    if (post.status === "COMPLETED" || post.status === "FAILED") {
       return;
     }
 
     const data = post.metadata as YoutubeContentMetaData;
+    const contentSize = Number(job.data.contentSize);
+
+    if (!Number.isSafeInteger(contentSize) || contentSize <= 0) {
+      throw new Error("Invalid video content size in upload job");
+    }
 
     const init = await fetch(
       "https://www.googleapis.com/upload/youtube/v3/videos?uploadType=resumable&part=snippet,status",
@@ -26,7 +31,7 @@ new Worker(
         headers: {
           Authorization: `Bearer ${job.data.accessToken}`,
           "Content-Type": "application/json; charset=UTF-8",
-          "X-Upload-Content-Length": String(),
+          "X-Upload-Content-Length": String(contentSize),
           "X-Upload-Content-Type": "video/mp4",
         },
         body: JSON.stringify({
@@ -35,32 +40,49 @@ new Worker(
         }),
       },
     );
-    if (!init.ok)
+
+    if (!init.ok) {
       throw new Error(
         `YouTube init failed: ${init.status} ${await init.text()}`,
       );
-    const uploadUrl = init.headers.get("location")!;
+    }
 
-    // (b) Stream the file from MinIO to that URL
+    const uploadUrl = init.headers.get("location");
+    if (!uploadUrl) {
+      throw new Error("YouTube did not return a resumable upload URL");
+    }
+
+    // Stream the object from MinIO to YouTube. The frontend only completes
+    // after MinIO upload has finished and the scheduling API has verified it.
     const stream = await minIo.getObject(BUCKET, data.objectKey);
     const upload = await fetch(uploadUrl, {
       method: "PUT",
       headers: {
-        "Content-Length": String(job.data.contentSize),
+        "Content-Length": String(contentSize),
         "Content-Type": "video/mp4",
       },
       body: stream as any,
-      // @ts-ignore required by Node's fetch for streaming bodies
+      // @ts-ignore Node's fetch requires duplex for a streaming request body.
       duplex: "half",
     });
-    if (!upload.ok) throw new Error(`YouTube upload failed: ${upload.status}`);
 
-    const video = await upload.json();
+    if (!upload.ok) {
+      throw new Error(
+        `YouTube upload failed: ${upload.status} ${await upload.text()}`,
+      );
+    }
+
+    const video = (await upload.json()) as { id?: string };
+    if (!video.id) {
+      throw new Error("YouTube upload response did not include a video ID");
+    }
+
     await prisma.contentUpload.update({
       where: { id: post.id },
       data: {
-        status: "SCHEDULED",
+        status: "COMPLETED",
         contentId: video.id,
+        errorMessage: null,
       },
     });
   },
